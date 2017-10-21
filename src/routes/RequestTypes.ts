@@ -128,3 +128,14 @@ export namespace UserRequest {
     email?: string
   }
 } 
+
+export namespace CommentRequest {
+  export interface idGet {
+    targetId: number;
+    targetType: string;
+  }
+  
+  export interface Get {
+    commentIds: number[]
+  }
+}

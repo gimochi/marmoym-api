@@ -23,6 +23,17 @@ interface User {
   username: string;
 }
 
+interface Comment {
+  id: number;
+  depth: number;
+  parent_id: number;
+  label: string;
+  user_id: number;
+  vote_id: number;
+  created_at: number;
+  updated_at: number;
+}
+
 interface DefinitionAbstract {
   id: number;
   updatedAt: number;
@@ -36,6 +47,13 @@ export namespace DefinitionResponse {
   export interface Get {
     terms: Term[];
     definitions: Definition[];
+    users: User[];
+  }
+}
+
+export namespace CommentResponse {
+  export interface Get {
+    comments: Comment[];
     users: User[];
   }
 }
