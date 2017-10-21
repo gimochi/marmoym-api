@@ -10,6 +10,7 @@ import ErrorType from '../../models/ErrorType';
 import { transaction } from '../../database/databaseUtils';
 import { DefinitionResponse } from '../../routes/ResponseTypes';
 import { DefinitionRequest } from '../../routes/RequestTypes';
+import * as ArrayUtils from '../../utils/ArrayUtils';
 
 export async function getDefinitionByDefIds(req: DefinitionRequest.Get)
   : Promise<DefinitionResponse.Get> {
@@ -26,8 +27,8 @@ export async function getDefinitionByDefIds(req: DefinitionRequest.Get)
   const defSelected = await DefinitionSelectDAO.selectDefinitionsByIds(req.defIds);
   
   await Promise.all(defSelected.map(async defObj => {
-    termIds = _appendIfNotPresent(termIds, defObj, 'term_id');
-    userIds = _appendIfNotPresent(userIds, defObj, 'user_id');
+    termIds = ArrayUtils._appendIfNotPresent(termIds, defObj, 'term_id');
+    userIds = ArrayUtils._appendIfNotPresent(userIds, defObj, 'user_id');
 
     defObj.updated_at = defObj.updated_at.getTime();
     defObj.poss = await PosSelectDAO.selectPosByDefinitionId(defObj.id);
@@ -61,11 +62,4 @@ export async function getDefinitionIdsBySearch(req: DefinitionRequest.Search) {
    defObj.updated_at = defObj.updated_at.getTime();
   }));
   return definitionIds;
-}
-
-function _appendIfNotPresent(arr, elem, key) {
-  if (arr.indexOf(elem[key]) == -1) {
-    arr.push(elem[key]);
-  }
-  return arr;
 }
