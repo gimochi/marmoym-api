@@ -101,6 +101,7 @@ exports.up = function(knex, Promise) {
     knex.schema.createTable('Comment', function(table) {
       table.increments('id').primary();
       table.integer('parent_id').defaultTo('0');
+      table.integer('depth').defaultTo('0');
       table.string('target_type', 1).notNullable();
       table.integer('target_id').notNullable();
       table.string('label', 512).notNullable();
