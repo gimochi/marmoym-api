@@ -134,7 +134,9 @@ export namespace CommentRequest {
     targetId: number;
     targetType: string;
   }
-  
+  // {
+  //   "commentIds": [1,2,3]
+  // }
   export interface Get {
     commentIds: number[]
   }
